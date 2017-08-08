@@ -19,7 +19,7 @@ renderButtons();
 $("button").on("click", function() {
 	$("#gifs-appear-here").empty();
 	var emotion = $(this).attr("data-name");
-	var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + emotion + "&api_key=dc6zaTOxFJmzC&limit=10";
+	var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + emotion + "&api_key=dc6zaTOxFJmzC&limit=10";
 
 	$.ajax({
 	      url: queryURL,
