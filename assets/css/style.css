@@ -17,3 +17,6 @@ body {
 	width: 100px;
 }
 
+form {
+	text-align: right;
+}

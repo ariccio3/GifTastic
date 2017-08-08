@@ -11,8 +11,6 @@ function renderButtons() {
 		a.text(topics[i]);
 		$("#arrayButtons").append(a);
 	}
-};
-renderButtons();
 
 // When you click on a button this function will add gifs to the page.
 
@@ -67,6 +65,8 @@ $("button").on("click", function() {
 });
 
 });
+};
+renderButtons();
 
 // Need function to to add user input to the array then recall renderButtons function
 
