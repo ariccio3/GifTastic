@@ -6,6 +6,7 @@ function renderButtons() {
 	for (var i = 0; i < topics.length; i++) {
 		var a = $("<button>");
 		a.addClass("emotion");
+		a.addClass("btn-success");
 		a.attr("data-name", topics[i]);
 		a.text(topics[i]);
 		$("#arrayButtons").append(a);
@@ -14,6 +15,7 @@ function renderButtons() {
 renderButtons();
 
 // When you click on a button this function will add gifs to the page.
+
 $("button").on("click", function() {
 	$("#gifs-appear-here").empty();
 	var emotion = $(this).attr("data-name");
@@ -25,28 +27,46 @@ $("button").on("click", function() {
 	    }).done(function(response) {
 	      console.log(response);
 
-
 	   var results = response.data;
 
 	   for (var j = 0; j < results.length; j++) {
 	   	var newDiv = $("<div>");
         var p = $("<p>");
-        p.text("Rating: " + results[j].rating);
-		var newImage = $("<img>");
-		newImage.addClass("data-animate", results[j]);
-		newImage.text(results[j].images.fixed_height.url);
+        p.text("↓ Rating: " + results[j].rating.toUpperCase());
+        newDiv.addClass("col-md-4", results[j]);
 
-        newImage.attr("src", results[j].images.original_still.url);
+		var newImage = $("<img>");
+		newImage.attr("src", results[j].images.fixed_height_still.url);
+		newImage.attr("data-still", results[j].images.fixed_height_still.url);
+		newImage.attr("data-animate", results[j].images.fixed_height.url);
+		newImage.attr("data-state", "still");
+		newImage.addClass("gif", results[j]);
+        
         newDiv.append(p);
         newDiv.append(newImage);
 
         $("#gifs-appear-here").append(newDiv);
 	   };
+
+// Need function to animate and still the gifs
+
+	   $(".gif").on("click", function() {
+	var state = $(this).attr("data-state");
+	
+	if (state === "still") {
+        var dataAnimateValue = $(this).attr("data-animate");
+        $(this).attr("src", dataAnimateValue);
+        $(this).attr("data-state", "animate");
+      } else {
+        var dataStillValue = $(this).attr("data-still");
+        $(this).attr("src", dataStillValue);
+        $(this).attr("data-state", "still");
+      };
+      
+    });	
 });
 
 });
-// Need function to animate and still the gifs
-	
 
 // Need function to to add user input to the array then recall renderButtons function
 
@@ -57,4 +77,4 @@ $("#addEmo").on("click", function(event) {
         renderButtons();
       });
 
-// $(document).on("click", ".emotion", displayMovieInfo);
+
